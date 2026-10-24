@@ -1,0 +1,1 @@
+export type BossPhase={name:string;threshold:number;speedMultiplier:number;damageMultiplier:number}; export const BOSS_PHASES:BossPhase[]=[{name:'Awakening',threshold:1,speedMultiplier:1,damageMultiplier:1},{name:'Enraged',threshold:.5,speedMultiplier:1.35,damageMultiplier:1.25},{name:'Desperate',threshold:.2,speedMultiplier:1.7,damageMultiplier:1.5}]
