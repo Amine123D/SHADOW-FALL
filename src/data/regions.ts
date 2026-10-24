@@ -1,0 +1,1 @@
+export const regions=[{id:'ashen-verge',name:'Ashen Verge',level:1,unlocked:true},{id:'drowned-fen',name:'Drowned Fen',level:4,unlocked:false},{id:'glass-catacombs',name:'Glass Catacombs',level:8,unlocked:false}] as const;
