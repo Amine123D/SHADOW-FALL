@@ -1,1 +1,4 @@
-import Phaser from 'phaser'; import {gameConfig} from './game/config'; import {BootScene} from './scenes/BootScene'; import {PreloadScene} from './scenes/PreloadScene'; import {TitleScene} from './scenes/TitleScene'; import {CharacterScene} from './scenes/CharacterScene'; import {WorldScene} from './scenes/WorldScene'; import {PauseScene} from './scenes/PauseScene'; import {EndingScene} from './scenes/EndingScene'; new Phaser.Game({...gameConfig,parent:'game-root',scene:[BootScene,PreloadScene,TitleScene,CharacterScene,WorldScene,PauseScene,EndingScene]});
+import Phaser from 'phaser';
+import { gameConfig } from './game/config';
+
+new Phaser.Game(gameConfig);
