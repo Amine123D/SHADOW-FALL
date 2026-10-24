@@ -6,7 +6,7 @@ type PlayerState = 'normal' | 'attacking' | 'dodging' | 'hurt';
 
 export class Player {
   readonly sprite: Phaser.GameObjects.Rectangle;
-  readonly maxHealth = BALANCE.player.maxHealth;
+  maxHealth: number = BALANCE.player.maxHealth;
   health = BALANCE.player.maxHealth;
   facing: 1 | -1 = 1;
   invulnerable = false;
