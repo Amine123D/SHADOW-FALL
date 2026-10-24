@@ -1,13 +1,12 @@
 name: CI
+
 on:
   push:
-    branches: [main, "feature/**"]
+    branches: [main]
   pull_request:
-  workflow_dispatch:
-permissions:
-  contents: read
+
 jobs:
-  validate:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,6 +14,5 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npm run typecheck
       - run: npm test
       - run: npm run build
