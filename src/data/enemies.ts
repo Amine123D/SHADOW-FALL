@@ -1,0 +1,1 @@
+export const enemies=[{id:'ashling',name:'Ashling',health:40,damage:8,xp:20,gold:3},{id:'hollow-hound',name:'Hollow Hound',health:65,damage:12,xp:32,gold:5},{id:'veil-cultist',name:'Veil Cultist',health:50,damage:15,xp:38,gold:7}] as const;
