@@ -1,0 +1,1 @@
+export class ProgressionSystem{static xpToNext(level:number){return Math.floor(100+Math.max(1,level)**2*35)}static addXp(s:{level:number;xp:number},n:number){s.xp+=Math.max(0,n);let levels=0;while(s.xp>=this.xpToNext(s.level)){s.xp-=this.xpToNext(s.level);s.level++;levels++}return levels}}
