@@ -1,1 +1,0 @@
-export type EnemyIntent='idle'|'approach'|'attack'|'retreat'; export class EnemyAISystem{decide(distance:number,healthRatio:number):EnemyIntent{if(healthRatio<.2&&distance<90)return'retreat';if(distance>180)return'idle';if(distance>40)return'approach';return'attack'}}
