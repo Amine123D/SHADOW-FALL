@@ -1,0 +1,1 @@
+export type LootDrop={itemId:string;chance:number;min:number;max:number}; export class LootSystem{static roll(d:LootDrop[],random=Math.random){return d.filter(x=>random()<x.chance).map(x=>({itemId:x.itemId,quantity:x.min+Math.floor(random()*(x.max-x.min+1))}))}}
