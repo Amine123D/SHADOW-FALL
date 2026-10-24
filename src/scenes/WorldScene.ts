@@ -1,9 +1,18 @@
 import Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT } from '../game/constants';
+import { BALANCE } from '../data/balance';
+import { Player } from '../entities/Player';
+import { Enemy } from '../entities/Enemy';
+import {
+  calculateDamage,
+  rectOf,
+  rectsOverlap,
+  rollCritical,
+} from '../systems/CombatSystem';
 
 export class WorldScene extends Phaser.Scene {
-  private player!: Phaser.GameObjects.Rectangle;
-  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private player!: Player;
+  private enemy!: Enemy;
 
   constructor() {
     super('WorldScene');
@@ -19,25 +28,39 @@ export class WorldScene extends Phaser.Scene {
     );
     this.physics.add.existing(ground, true);
 
-    this.player = this.add.rectangle(60, 100, 16, 24, 0xc8a2ff);
-    this.physics.add.existing(this.player);
+    this.player = new Player(this, 60, 100);
+    this.physics.add.collider(this.player.sprite, ground);
 
-    const body = this.player.body as Phaser.Physics.Arcade.Body;
-    body.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player, ground);
+    this.enemy = new Enemy(this, 220, 200);
+    this.physics.add.collider(this.enemy.sprite, ground);
 
-    this.cursors = this.input.keyboard!.createCursorKeys();
+    this.add.text(8, 8, 'Arrows: move/jump   Z: attack   X: dodge', {
+      fontFamily: 'monospace',
+      fontSize: '10px',
+      color: '#aaaaaa',
+    });
   }
 
-  update(): void {
-    const body = this.player.body as Phaser.Physics.Arcade.Body;
+  update(time: number): void {
+    this.player.update(time);
+    this.enemy.update();
 
-    if (this.cursors.left.isDown) body.setVelocityX(-120);
-    else if (this.cursors.right.isDown) body.setVelocityX(120);
-    else body.setVelocityX(0);
-
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.up) && body.blocked.down) {
-      body.setVelocityY(-260);
+    const hitbox = this.player.getAttackHitbox(time);
+    if (
+      hitbox &&
+      this.enemy.health > 0 &&
+      !this.player.hasHit(this.enemy) &&
+      rectsOverlap(hitbox, rectOf(this.enemy.sprite))
+    ) {
+      this.player.markHit(this.enemy);
+      const isCritical = rollCritical(BALANCE.attack.critChance);
+      const damage = calculateDamage({
+        baseDamage: BALANCE.player.baseAttack,
+        defense: this.enemy.defense,
+        isCritical,
+        critMultiplier: BALANCE.attack.critMultiplier,
+      });
+      this.enemy.takeHit(damage, isCritical, this.player.facing);
     }
   }
 }
