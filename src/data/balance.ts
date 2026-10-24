@@ -1,0 +1,1 @@
+export const balance={player:{health:100,speed:230,jump:440,attackDamage:20,attackCooldownMs:260},enemy:{health:40,speed:42},progression:{baseXp:100,levelGrowth:35}} as const;
