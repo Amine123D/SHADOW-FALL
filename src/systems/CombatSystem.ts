@@ -1,0 +1,1 @@
+import {ATTACK_DAMAGE} from '../game/constants'; export class CombatSystem{static readonly damage=ATTACK_DAMAGE}
