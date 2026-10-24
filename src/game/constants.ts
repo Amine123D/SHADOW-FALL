@@ -1,0 +1,1 @@
+export const PLAYER_SPEED=230; export const PLAYER_JUMP=440; export const PLAYER_MAX_HEALTH=100; export const ENEMY_MAX_HEALTH=40; export const ATTACK_DAMAGE=20; export const SAVE_KEY='shadowfall-save-v1';
