@@ -1,1 +1,19 @@
-export type BossPhase={name:string;threshold:number;speedMultiplier:number;damageMultiplier:number}; export const BOSS_PHASES:BossPhase[]=[{name:'Awakening',threshold:1,speedMultiplier:1,damageMultiplier:1},{name:'Enraged',threshold:.5,speedMultiplier:1.35,damageMultiplier:1.25},{name:'Desperate',threshold:.2,speedMultiplier:1.7,damageMultiplier:1.5}]
+import type { BossAttackId, BossPhaseDef } from '../data/bosses';
+
+export function phaseIndexFor(
+  healthPct: number,
+  phases: BossPhaseDef[]
+): number {
+  let index = 0;
+  for (let i = 0; i < phases.length; i++) {
+    if (healthPct <= phases[i].startsAtOrBelow) index = i;
+  }
+  return index;
+}
+
+export function nextAttack(
+  phase: BossPhaseDef,
+  counter: number
+): BossAttackId {
+  return phase.pattern[counter % phase.pattern.length];
+}
