@@ -1,0 +1,1 @@
+export type RegionLink={from:string;to:string;levelRequired:number}; export class WorldSystem{constructor(private links:RegionLink[]){}reachable(region:string,level:number){return this.links.filter(l=>l.from===region&&level>=l.levelRequired).map(l=>l.to)}}
