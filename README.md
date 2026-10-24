@@ -1,14 +1,29 @@
-# SHADOWFALL: REALMS OF CHAOS
+# SHADOWFALL: Realms of Chaos
 
-An original dark-fantasy 2D action RPG built with Phaser 3, TypeScript and Vite.
+A 2D pixel-art action RPG built with Phaser 3, TypeScript, and Vite.
 
-## First playable foundation
-Title and character-selection screens, a side-view arena, movement, jumping, melee attacks, enemies, HUD and pause screen. Placeholder pixel art is generated in code. Full roster, bosses, regions and final art are future work.
+Full design and build instructions: `SHADOWFALL_REALMS_OF_CHAOS_MASTER_PROMPT.md`
 
-## Run locally (Node.js 20+)
+## Run
+
 ```sh
 npm install
 npm run dev
 ```
-Validate with `npm run typecheck`, `npm test`, and `npm run build`.
-Controls: A/D or arrows to move; W/Up/Space to jump; J/Z to attack; Escape to pause.
+
+## Test and build
+
+```sh
+npm test
+npm run build
+```
+
+## Controls
+
+Arrows move and jump, Z attack, X dodge, A Forward Rush, S Ground Shockwave,
+D Defensive Stance, I inventory, Esc pause. Touch buttons appear on touch devices.
+
+## Status
+
+Milestone 1 (vertical slice) in progress: one class (Vanguard), three enemies,
+one boss, loot, inventory, saving.
