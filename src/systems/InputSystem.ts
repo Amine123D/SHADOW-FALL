@@ -1,0 +1,1 @@
+import Phaser from 'phaser'; export class InputSystem{static movement(scene:Phaser.Scene){return scene.input.keyboard?.createCursorKeys()??null}static pressed(key:Phaser.Input.Keyboard.Key){return Phaser.Input.Keyboard.JustDown(key)}}
