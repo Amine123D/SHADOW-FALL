@@ -1,1 +1,21 @@
-export type Ability={id:string;name:string;description:string;cooldown:number;damage:number}; export class AbilitySystem{private cooldowns=new Map<string,number>();canUse(id:string,now:number){return now>=(this.cooldowns.get(id)??0)}use(a:Ability,now:number){if(!this.canUse(a.id,now))return false;this.cooldowns.set(a.id,now+a.cooldown);return true}}
+import type { AbilityId } from '../data/abilities';
+
+export class AbilityCooldowns {
+  private readyAt: Partial<Record<AbilityId, number>> = {};
+
+  isReady(id: AbilityId, now: number): boolean {
+    return now >= (this.readyAt[id] ?? 0);
+  }
+
+  start(id: AbilityId, now: number, cooldownMs: number): void {
+    this.readyAt[id] = now + cooldownMs;
+  }
+
+  remainingMs(id: AbilityId, now: number): number {
+    return Math.max(0, (this.readyAt[id] ?? 0) - now);
+  }
+
+  reset(): void {
+    this.readyAt = {};
+  }
+}
