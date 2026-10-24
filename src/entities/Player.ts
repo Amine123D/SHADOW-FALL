@@ -2,10 +2,12 @@ import Phaser from 'phaser';
 import { BALANCE } from '../data/balance';
 import { Rect } from '../systems/CombatSystem';
 
-type PlayerState = 'normal' | 'attacking' | 'dodging';
+type PlayerState = 'normal' | 'attacking' | 'dodging' | 'hurt';
 
 export class Player {
   readonly sprite: Phaser.GameObjects.Rectangle;
+  readonly maxHealth = BALANCE.player.maxHealth;
+  health = BALANCE.player.maxHealth;
   facing: 1 | -1 = 1;
   invulnerable = false;
 
@@ -20,6 +22,7 @@ export class Player {
   private attackStartedAt = 0;
   private attackReadyAt = 0;
   private dodgeReadyAt = 0;
+  private iFramesUntil = 0;
   private hitTargets = new Set<object>();
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -38,9 +41,31 @@ export class Player {
     this.dodgeKey = keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
   }
 
+  canBeHit(time: number): boolean {
+    return !this.invulnerable && time >= this.iFramesUntil && this.health > 0;
+  }
+
+  takeDamage(amount: number, direction: 1 | -1, time: number): boolean {
+    if (!this.canBeHit(time)) return false;
+    const H = BALANCE.hurt;
+    this.health = Math.max(0, this.health - amount);
+    this.state = 'hurt';
+    this.stateEndsAt = time + H.stunMs;
+    this.iFramesUntil = time + H.invulnMs;
+    this.body.setVelocity(direction * H.knockback, -120);
+    this.slash.setVisible(false);
+    return true;
+  }
+
   update(time: number): void {
     const P = BALANCE.player;
     const D = BALANCE.dodge;
+
+    if (this.health <= 0) {
+      this.body.setVelocityX(0);
+      this.slash.setVisible(false);
+      return;
+    }
 
     if (this.state === 'dodging') {
       if (time >= this.stateEndsAt) {
@@ -54,6 +79,9 @@ export class Player {
     }
 
     if (this.state === 'attacking' && time >= this.stateEndsAt) {
+      this.state = 'normal';
+    }
+    if (this.state === 'hurt' && time >= this.stateEndsAt) {
       this.state = 'normal';
     }
 
@@ -88,6 +116,11 @@ export class Player {
       }
     } else if (this.state === 'attacking') {
       this.body.setVelocityX(0);
+    }
+
+    if (this.state !== 'dodging') {
+      const blink = time < this.iFramesUntil && Math.floor(time / 60) % 2 === 1;
+      this.sprite.setAlpha(blink ? 0.4 : 1);
     }
 
     const hitbox = this.getAttackHitbox(time);
