@@ -1,1 +1,55 @@
-import Phaser from 'phaser'; export class Projectile extends Phaser.Physics.Arcade.Image{damageValue:number;constructor(scene:Phaser.Scene,x:number,y:number,vx:number,damage=10){super(scene,x,y,'hero');this.damageValue=damage;scene.add.existing(this);scene.physics.add.existing(this);this.setScale(.35).setTint(0xa995ff);(this.body as Phaser.Physics.Arcade.Body).setVelocity(vx,0);scene.time.delayedCall(1600,()=>this.destroy())}}
+import Phaser from 'phaser';
+import { BALANCE } from '../data/balance';
+
+export interface ProjectileOptions {
+  speed?: number;
+  width?: number;
+  height?: number;
+  color?: number;
+  lifeMs?: number;
+}
+
+export class Projectile {
+  readonly sprite: Phaser.GameObjects.Rectangle;
+  readonly damage: number;
+  readonly direction: 1 | -1;
+  alive = true;
+
+  private readonly diesAt: number;
+
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    direction: 1 | -1,
+    damage: number,
+    time: number,
+    options: ProjectileOptions = {}
+  ) {
+    this.damage = damage;
+    this.direction = direction;
+    this.diesAt = time + (options.lifeMs ?? BALANCE.projectile.lifeMs);
+
+    this.sprite = scene.add.rectangle(
+      x,
+      y,
+      options.width ?? 8,
+      options.height ?? 5,
+      options.color ?? 0x9be564
+    );
+    scene.physics.add.existing(this.sprite);
+    const body = this.sprite.body as Phaser.Physics.Arcade.Body;
+    body.setAllowGravity(false);
+    body.setVelocityX(direction * (options.speed ?? BALANCE.projectile.speed));
+  }
+
+  update(time: number): void {
+    if (this.alive && time >= this.diesAt) this.destroy();
+  }
+
+  destroy(): void {
+    if (!this.alive) return;
+    this.alive = false;
+    this.sprite.destroy();
+  }
+}
