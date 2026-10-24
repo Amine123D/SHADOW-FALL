@@ -1,1 +1,0 @@
-export type QuestState={id:string;progress:number;target:number;complete:boolean}; export class QuestSystem{advance(q:QuestState,n=1){if(q.complete)return q;q.progress=Math.min(q.target,q.progress+n);q.complete=q.progress>=q.target;return q}}
