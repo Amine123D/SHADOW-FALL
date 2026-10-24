@@ -1,0 +1,1 @@
+export const abilities=[{id:'cleave',name:'Cleave',cooldown:900,damage:28},{id:'ember',name:'Ember Bolt',cooldown:1400,damage:34},{id:'resolve',name:'Resolve',cooldown:6000,damage:0}] as const;
