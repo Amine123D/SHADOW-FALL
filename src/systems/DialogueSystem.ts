@@ -1,0 +1,1 @@
+export type DialogueLine={speaker:string;text:string}; export class DialogueSystem{constructor(private lines:DialogueLine[]){}current(i:number){return this.lines[i]??null}get length(){return this.lines.length}}
