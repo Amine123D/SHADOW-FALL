@@ -1,0 +1,1 @@
+export type GameState={health:number;maxHealth:number;level:number;xp:number;gold:number;region:string;paused:boolean}; export const initialGameState=():GameState=>({health:100,maxHealth:100,level:1,xp:0,gold:0,region:'Ashen Verge',paused:false});
