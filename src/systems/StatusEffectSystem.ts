@@ -1,0 +1,1 @@
+export type StatusEffect={id:string;duration:number;power:number;expiresAt:number}; export class StatusEffectSystem{private effects=new Map<string,StatusEffect>();apply(e:StatusEffect){this.effects.set(e.id,e)}active(now:number){for(const [id,e] of this.effects)if(e.expiresAt<=now)this.effects.delete(id);return [...this.effects.values()]}clear(){this.effects.clear()}}
