@@ -1,0 +1,1 @@
+export const bosses=[{id:'cinder-knight',name:'The Cinder Knight',region:'ashen-verge',health:650,damage:24},{id:'mire-oracle',name:'Mire Oracle',region:'drowned-fen',health:900,damage:30}] as const;
