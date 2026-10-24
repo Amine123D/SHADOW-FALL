@@ -3,6 +3,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from './constants';
 import { BootScene } from '../scenes/BootScene';
 import { TitleScene } from '../scenes/TitleScene';
 import { WorldScene } from '../scenes/WorldScene';
+import { InventoryScene } from '../scenes/InventoryScene';
+import { PauseScene } from '../scenes/PauseScene';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -19,5 +21,5 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     default: 'arcade',
     arcade: { gravity: { x: 0, y: 600 }, debug: false },
   },
-  scene: [BootScene, TitleScene, WorldScene],
+  scene: [BootScene, TitleScene, WorldScene, InventoryScene, PauseScene],
 };
