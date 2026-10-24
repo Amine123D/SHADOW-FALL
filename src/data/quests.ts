@@ -1,0 +1,1 @@
+export const quests=[{id:'first-light',title:'First Light',description:'Defeat three Ashlings in the Ashen Verge.',target:3,rewardXp:80},{id:'old-road',title:'The Old Road',description:'Find the path out of the verge.',target:1,rewardXp:120}] as const;
