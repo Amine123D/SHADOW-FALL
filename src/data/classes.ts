@@ -1,0 +1,1 @@
+export const classes=[{id:'wanderer',name:'Wanderer',role:'Balanced fighter',startingHealth:100,startingDamage:20},{id:'arcanist',name:'Arcanist',role:'Spellcaster',startingHealth:75,startingDamage:26},{id:'warden',name:'Warden',role:'Defender',startingHealth:130,startingDamage:15}] as const;
