@@ -1,0 +1,1 @@
+export type Ability={id:string;name:string;description:string;cooldown:number;damage:number}; export class AbilitySystem{private cooldowns=new Map<string,number>();canUse(id:string,now:number){return now>=(this.cooldowns.get(id)??0)}use(a:Ability,now:number){if(!this.canUse(a.id,now))return false;this.cooldowns.set(a.id,now+a.cooldown);return true}}
