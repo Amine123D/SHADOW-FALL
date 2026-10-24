@@ -1,0 +1,1 @@
+export const items=[{id:'rusted-blade',name:'Rusted Blade',type:'weapon',power:4},{id:'ashen-cloak',name:'Ashen Cloak',type:'armor',power:8},{id:'small-tonic',name:'Small Tonic',type:'consumable',power:25}] as const;
