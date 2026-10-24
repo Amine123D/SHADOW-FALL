@@ -1,0 +1,1 @@
+import Phaser from 'phaser'; export class UIScene extends Phaser.Scene{constructor(){super('UIScene')}create(){this.add.text(12,12,'SHADOWFALL',{fontFamily:'monospace',fontSize:'12px',color:'#a995ff'})}}
